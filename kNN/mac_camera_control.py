@@ -54,17 +54,18 @@ openpose = op.OpenPose(params)
 
 # this function is used to [test] control tello move in sequential commonns
 # [dr.niu] knows whether it is functioning well
+'''
 def move_to_curve(drone, x, y, z):
     drone.forwardsimplecontrol(int(x))
     sleep(2)
     drone.downsimplecontrol(int(y))
     sleep(2)
     drone.leftsimplecontrol(int(z))
-
-
+'''
+'''
 # function used to control tello to do justure
 # according to the idx output of knn
-def idx2pose(drone, pastidx):
+def idx2pose(pastidx):
     if pastidx == 0:    # raise the left arm, lateral raise the right arm
         drone.rightsimplecontrol(20)
     elif pastidx == 1:  # lateral raise the right arm
@@ -93,22 +94,57 @@ def idx2pose(drone, pastidx):
 
     elif pastidx == 6:  # raise both arms as =
         drone.downsimplecontrol(20)
+'''
 
+def idx2pose(pastidx):
+    if pastidx == 0:    # raise the left arm, lateral raise the right arm
+        print('drone.rightsimplecontrol(20)')
+    elif pastidx == 1:  # lateral raise the right arm
+        print('drone.land()')
+    elif pastidx == 2:  # lateral raise the left arm
+        print('drone.takeoff()')
+    elif pastidx == 3:  # raise the right arm , lateral raise the left arm
+        print('drone.leftsimplecontrol(20)')
+    elif pastidx == 4:  # both arm raised as v
+        print('drone.flip_rightsimplecontrol()')
+        # drone.upsimplecontrol(20)
+    elif pastidx == 5:  # lateral raise both arms
+        print('drone.backwardsimplecontrol(20)')
+        # drone.go(50,30,30)
+
+    #         sleep(15)
+    #         for i in range(1,numpy.size(path,0)):
+    #             x = path[i,0] - path[i-1,0]
+    #             y = path[i,1] - path[i-1,1]
+    #             z = path[i,2] - path[i-1,2]
+    #             print('start to go')
+    #             drone.go(x,y,z)
+    #             print(x, y, z)
+    #             sleep(3)
+    #             move_to_curve(drone,x,y,z)
+
+    elif pastidx == 6:  # raise both arms as =
+        print('drone.downsimplecontrol(20)')
 
 def main():
-    drone = tellopy.Tello()
+    #drone = tellopy.Tello()
 
     try:
-        drone.connect()
-        drone.wait_for_connection(60.0)
+        #drone.connect()
+        #drone.wait_for_connection(60.0)
+        
         # drone.startControlCommand()
         # drone.takeoffsimplecontrol()
         # drone.takeoff()
         # sleep(3)
         # drone.land()
         # sleep(3)
-        drone.set_video_encoder_rate(1)
-        container = av.open(drone.get_video_stream())
+        #drone.set_video_encoder_rate(1)
+        #container = cv2.VideoCapture(0)
+        #font = cv2.FONT_HERSHEY_SIMPLEX
+        #container = av.open(drone.get_video_stream())
+        #container = av.open(stream)
+        container = av.open(format='avfoundation', file='0') 
         '''
         
          -camera (The camera index for cv::VideoCapture. Integer in the range [0,
@@ -175,7 +211,7 @@ def main():
                         if idx != pastidx:
                             pastidx = idx
                             print('pose idx has changed to %d'%(idx))
-                        idx2pose(drone, pastidx)
+                        idx2pose(pastidx)
 
 
                 # for multi-person data matrices, size=n*(3*25)
@@ -219,7 +255,7 @@ def main():
                             actor = idx_list.index(2)
                             idx = idx_list[actor]
                             print('take off in multi-person mode by actor:', actor)
-                            idx2pose(drone, idx)
+                            idx2pose(idx)
                             print('take off in multi-person mode done')
 
                     # this part is entered when the plane:
@@ -246,20 +282,20 @@ def main():
                         print('ready to get the idx in [multi-person] actor mode')
                         idx = idx_list[actor]
                         print('actor has set the idx to:',idx)
-                        idx2pose(drone, idx)
+                        idx2pose(idx)
                         print('actor is :',actor,'pose is:',idx)
 
                     # print('ready to do pose!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-                    # idx2pose(drone, idx)
+                    # idx2pose(idx)
                     # print('do action in multi-person!!!!!!!!!!!!!!!!!!!!!!!')
 
 
                 elif interupt & 0xFF == ord('q'):
                     cv2.destroyWindow(output_image)
-                    drone.land()
+                    print('drone.land()')
 
                 elif numpy.size(keypoints)== 0: ##if UAV can't find any person,turn around until detect one person
-                    drone.clockwisesimplecontrol(20)
+                    print('drone.clockwisesimplecontrol(20)')
 
                     # drone.quitsimplecontrol()
                     # sleep(1)
@@ -310,7 +346,7 @@ def main():
         traceback.print_exception(exc_type, exc_value, exc_traceback)
         print(ex)
     finally:
-        drone.quit()
+        print('drone.quit()')
         cv2.destroyAllWindows()
 
 
