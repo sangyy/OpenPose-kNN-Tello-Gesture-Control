@@ -37,7 +37,7 @@ except:
 params = dict()
 params["logging_level"] = 3
 params["output_resolution"] = "-1x-1"
-params["net_resolution"] = "-1x368"
+params["net_resolution"] = "192x-1"
 params["model_pose"] = "BODY_25"
 params["alpha_pose"] = 0.6
 params["scale_gap"] = 0.3
@@ -144,6 +144,9 @@ def main():
         #container = av.open(format='avfoundation', file='0') 
         #container = av.open(drone.get_video_stream())
         container = av.open('pose_control.mp4')
+        #container.VideoFrame(320, 180, 'rgb24')
+        #container.width = 320
+        #container.height = 180
         '''
         
          -camera (The camera index for cv::VideoCapture. Integer in the range [0,
@@ -178,7 +181,11 @@ def main():
                     continue
                 # start_time = time.time()
                 interupt = cv2.waitKey(10)  # 10s to read keys? roll call?
-                image = cv2.cvtColor(numpy.array(frame.to_image()), cv2.COLOR_RGB2BGR)
+                #frame(320, 180, 'rgb24')
+                #frame = frame(320, 180)
+                #frame = frame.reformat(320, -1, 'rgb24')
+                image = cv2.cvtColor(numpy.array(frame.reformat(640, 380).to_image()), cv2.COLOR_RGB2BGR)
+                #image = cv2.resize(image, (640, 360));
                 keypoints, output_image = openpose.forward(image, True)
                 # keypoints is a matrix filled in multi-person data
                 # format:[[p1][p2][p3]]
