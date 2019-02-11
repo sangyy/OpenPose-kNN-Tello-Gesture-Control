@@ -37,7 +37,7 @@ except:
 params = dict()
 params["logging_level"] = 3
 params["output_resolution"] = "-1x-1"
-params["net_resolution"] = "192x-1"
+params["net_resolution"] = "-1x128"
 params["model_pose"] = "BODY_25"
 params["alpha_pose"] = 0.6
 params["scale_gap"] = 0.3
@@ -143,7 +143,7 @@ def main():
         # Open webcam on OS X.
         #container = av.open(format='avfoundation', file='0') 
         #container = av.open(drone.get_video_stream())
-        container = av.open('pose_control.mp4')
+        container = av.open('sangyy4.mp4')
         #container.VideoFrame(320, 180, 'rgb24')
         #container.width = 320
         #container.height = 180
@@ -184,7 +184,7 @@ def main():
                 #frame(320, 180, 'rgb24')
                 #frame = frame(320, 180)
                 #frame = frame.reformat(320, -1, 'rgb24')
-                image = cv2.cvtColor(numpy.array(frame.reformat(640, 380).to_image()), cv2.COLOR_RGB2BGR)
+                image = cv2.cvtColor(numpy.array(frame.reformat(272, 480).to_image()), cv2.COLOR_RGB2BGR)
                 #image = cv2.resize(image, (640, 360));
                 keypoints, output_image = openpose.forward(image, True)
                 # keypoints is a matrix filled in multi-person data
