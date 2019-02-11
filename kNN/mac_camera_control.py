@@ -37,8 +37,8 @@ except:
 params = dict()
 params["logging_level"] = 3
 params["output_resolution"] = "-1x-1"
-params["net_resolution"] = "-1x368"
-params["model_pose"] = "BODY_25"
+params["net_resolution"] = "160x-1"
+params["model_pose"] = "COCO"
 params["alpha_pose"] = 0.6
 params["scale_gap"] = 0.3
 params["scale_number"] = 1
@@ -179,7 +179,7 @@ def main():
                     continue
                 # start_time = time.time()
                 interupt = cv2.waitKey(10)  # 10s to read keys? roll call?
-                image = cv2.cvtColor(numpy.array(frame.to_image()), cv2.COLOR_RGB2BGR)
+                image = cv2.cvtColor(numpy.array(frame.reformat(640, 380).to_image()), cv2.COLOR_RGB2BGR)
                 keypoints, output_image = openpose.forward(image, True)
                 # keypoints is a matrix filled in multi-person data
                 # format:[[p1][p2][p3]]
