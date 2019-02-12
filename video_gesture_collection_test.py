@@ -60,8 +60,12 @@ def main():
             sio.savemat('./testaction_1', mdict={'keypoints': keypoints_collection}, oned_as='row')
 
         # # for each person's action we take his or her action gesture and restore in 4d array [1,image_count,25,3]
-        keypoints_collection_import = sio.loadmat('./action_1')
+        keypoints_collection_import = sio.loadmat('./testaction_1')
+        print('********print(keypoints_collection_import)**********')
+        print(keypoints_collection_import)
+        print('********print(keypoints_collection_import)    end   **********')
         keypoints_collection = keypoints_collection_import.get('keypoints')
+     
         #if keypoints_collection.size == 0:
         if numpy.size(keypoints_collection) == 0:
             keypoints_collection = keypoints_collection.reshape(0, 3)
@@ -77,6 +81,7 @@ def main():
             cv2.waitKey(1000)
 
             if numpy.size(keypoints) > 40:
+                print(keypoints)
                 print('the shape of output keypoints is ', numpy.shape(keypoints))
                 image_count += 1
                 print('count',image_count)
@@ -86,7 +91,7 @@ def main():
 
             loop_init -=1
 
-        sio.savemat('./testaction_1',mdict={'out': keypoints_collection}, oned_as='row')
+        sio.savemat('./testaction_1',mdict={'keypoints': keypoints_collection}, oned_as='row')
         # action_collection.write(keypoints_collection)
 
         matdata = sio.loadmat('./testaction_1')
