@@ -24,7 +24,7 @@ except:
 params = dict()
 params["logging_level"] = 3
 params["output_resolution"] = "-1x-1"
-params["net_resolution"] = "-1x368"
+params["net_resolution"] = "128x-1"
 params["model_pose"] = "BODY_25"
 params["alpha_pose"] = 0.6
 params["scale_gap"] = 0.3

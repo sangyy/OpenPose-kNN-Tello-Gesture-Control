@@ -166,7 +166,7 @@ def main():
         print('Start Video Stream**********************************')
         # skip first 10 frames
 
-        frame_skip = 10
+        frame_skip = 20
         count_frame = 10
         flags = numpy.zeros((1,4))
         pastidx = None  # a var to store info of indx, used in one person ver. to make same movement

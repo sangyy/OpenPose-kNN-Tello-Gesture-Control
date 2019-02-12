@@ -3,7 +3,7 @@ import traceback
 import threading
 import tellopy
 import av
-import cv2.cv2 as cv2  # for avoidance of pylint error
+import cv2 # for avoidance of pylint error
 import numpy
 import time
 import os
@@ -24,7 +24,7 @@ except:
 params = dict()
 params["logging_level"] = 3
 params["output_resolution"] = "-1x-1"
-params["net_resolution"] = "-1x368"
+params["net_resolution"] = "128x-1"
 params["model_pose"] = "BODY_25"
 params["alpha_pose"] = 0.6
 params["scale_gap"] = 0.3
@@ -39,9 +39,10 @@ params["default_model_folder"] = dir_path + "/../../../models/"
 openpose = op.OpenPose(params)
 
 def main():
-    drone = tellopy.Tello()
+    #drone = tellopy.Tello()
 
     try:
+        '''
         drone.connect()
         drone.wait_for_connection(60.0)
         # drone.takeoff()
@@ -50,25 +51,27 @@ def main():
         # sleep(3)
         drone.set_video_encoder_rate(1)
         container = av.open(drone.get_video_stream())
+        '''
+        container = av.open(format='avfoundation', file='0') 
         print('Start Video Stream**********************************')
         # skip first 10 frames
 
-        frame_skip = 10
+        frame_skip = 100
         # loop_init = 400
         image_count = 0
         count = 0
         keypoints_collection = numpy.empty((0, 3), float)
 
         # print('The path is:' + str(dir_path))
-        filename = dir_path + "/lrr.mat"
+        filename = dir_path + "/leftup.mat"
 
         #  check if there's a action_1.mat file, we will create action_1.mat if not exists
 
         if not os.path.exists(filename):
-            sio.savemat('./lrr', mdict={'keypoints': keypoints_collection}, oned_as='row')
+            sio.savemat('./leftup', mdict={'keypoints': keypoints_collection}, oned_as='row')
 
         # for each person's action we take his or her action gesture and restore in 4d array [1,image_count,25,3]
-        keypoints_collection_import = sio.loadmat('./lrr')
+        keypoints_collection_import = sio.loadmat('./leftup')
         keypoints_collection = keypoints_collection_import.get('keypoints')
         if numpy.size(keypoints_collection) == 0:
             keypoints_collection = keypoints_collection.reshape(0, 3)
@@ -82,7 +85,7 @@ def main():
                     continue
                 # start_time = time.time()
                 interupt = cv2.waitKey(10)
-                image = cv2.cvtColor(numpy.array(frame.to_image()), cv2.COLOR_RGB2BGR)
+                image = cv2.cvtColor(numpy.array(frame.reformat(640, 380).to_image()), cv2.COLOR_RGB2BGR)
                 keypoints, output_image = openpose.forward(image, True)
                 cv2.imshow("output", output_image)
                 # # for test image
@@ -127,7 +130,7 @@ def main():
 
                 elif interupt & 0xFF == ord('q'):
                     cv2.destroyWindow(output_image)
-                    drone.land()
+                    print('drone.land()')
                     # drone.quitsimplecontrol()
                     # sleep(1)
                 # if interupt & 0xFF == ord('l'):
@@ -177,7 +180,7 @@ def main():
             if count ==1:
                 break
 
-        sio.savemat('./lrr',mdict={'keypoints': keypoints_collection}, oned_as='row')
+        sio.savemat('./leftup',mdict={'keypoints': keypoints_collection}, oned_as='row')
         # action_collection.write(keypoints_collection)
 
         # matdata = sio.loadmat('./action_1')
@@ -189,7 +192,7 @@ def main():
         traceback.print_exception(exc_type, exc_value, exc_traceback)
         print(ex)
     finally:
-        drone.quit()
+        #drone.quit()
         cv2.destroyAllWindows()
 
 
