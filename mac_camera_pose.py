@@ -86,11 +86,12 @@ def main():
       
         cv2.imshow('Human Pose Estimation',output_image)
         
+        
         if cv2.waitKey(10) & 0xFF == ord('q'):
             print( "I'm done end **********************************")
             break
         
-    
+        
     stream.release()
     cv2.destroyAllWindows()
     

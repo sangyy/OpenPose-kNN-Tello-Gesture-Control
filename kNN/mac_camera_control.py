@@ -37,8 +37,8 @@ except:
 params = dict()
 params["logging_level"] = 3
 params["output_resolution"] = "-1x-1"
-params["net_resolution"] = "160x-1"
-params["model_pose"] = "COCO"
+params["net_resolution"] = "128x-1"
+params["model_pose"] = "BODY_25"
 params["alpha_pose"] = 0.6
 params["scale_gap"] = 0.3
 params["scale_number"] = 1
@@ -106,7 +106,7 @@ def idx2pose(pastidx):
     elif pastidx == 3:  # raise the right arm , lateral raise the left arm
         print('drone.leftsimplecontrol(20)')
     elif pastidx == 4:  # both arm raised as v
-        print('drone.flip_rightsimplecontrol()')
+        print('drone.upsimplecontrol(20)')
         # drone.upsimplecontrol(20)
     elif pastidx == 5:  # lateral raise both arms
         print('drone.backwardsimplecontrol(20)')
@@ -295,7 +295,7 @@ def main():
                     print('drone.land()')
 
                 elif numpy.size(keypoints)== 0: ##if UAV can't find any person,turn around until detect one person
-                    print('drone.clockwisesimplecontrol(20)')
+                    print('UAV can\'t find any person,turn around to search actor drone.clockwisesimplecontrol(20)')
 
                     # drone.quitsimplecontrol()
                     # sleep(1)
