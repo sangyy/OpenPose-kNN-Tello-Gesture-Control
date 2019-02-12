@@ -52,40 +52,44 @@ def main():
         # print(' the size of keypoints_collection is', numpy.shape(keypoints_collection))
         # flags = numpy.zeros((1, 4))
         # print('The path is:' + str(dir_path))
-        filename = dir_path + "/action_1.mat"
+        filename = dir_path + "/testaction_1.mat"
 
         #  check if there's a action_1.mat file, we will create action_1.mat if it's not exists
 
         if not os.path.exists(filename):
-            sio.savemat('./action_1', mdict={'keypoints': keypoints_collection}, oned_as='row')
+            sio.savemat('./testaction_1', mdict={'keypoints': keypoints_collection}, oned_as='row')
 
         # # for each person's action we take his or her action gesture and restore in 4d array [1,image_count,25,3]
         keypoints_collection_import = sio.loadmat('./action_1')
         keypoints_collection = keypoints_collection_import.get('keypoints')
-        if keypoints_collection.size == 0:
+        #if keypoints_collection.size == 0:
+        if numpy.size(keypoints_collection) == 0:
             keypoints_collection = keypoints_collection.reshape(0, 3)
         print(' the size of keypoints_collection is', numpy.shape(keypoints_collection))
 
         while loop_init:
 
-            img = cv2.imread("../../../examples/media/COCO_val2014_000000000294.jpg")
+            img = cv2.imread("testaction.png")
+            img = cv2.resize(img, (272, 480))
             keypoints, output_image = openpose.forward(img, True)
             # print(keypoints)
             cv2.imshow("output", output_image)
-            cv2.waitKey(15000)
+            cv2.waitKey(1000)
 
-            if numpy.size(keypoints) != 0:
+            if numpy.size(keypoints) > 40:
+                print('the shape of output keypoints is ', numpy.shape(keypoints))
                 image_count += 1
+                print('count',image_count)
                 keypoints = keypoints[0,:,:]
                 keypoints_collection = numpy.vstack((keypoints_collection, keypoints))
 
 
             loop_init -=1
 
-        sio.savemat('./action_1',mdict={'out': keypoints_collection}, oned_as='row')
+        sio.savemat('./testaction_1',mdict={'out': keypoints_collection}, oned_as='row')
         # action_collection.write(keypoints_collection)
 
-        matdata = sio.loadmat('./action_1')
+        matdata = sio.loadmat('./testaction_1')
         print('size of keypoint_collection', numpy.shape(keypoints_collection))
         print(matdata)
 
