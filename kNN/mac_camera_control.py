@@ -167,8 +167,8 @@ def main():
         # skip first 10 frames
 
         frame_skip = 20
-        count_frame = 10
-        flags = numpy.zeros((1,4))
+        #count_frame = 10
+        #flags = numpy.zeros((1,4))
         pastidx = None  # a var to store info of indx, used in one person ver. to make same movement
         actor = None  # a var to identify which user gets the control of tello
 
@@ -335,8 +335,8 @@ def main():
                 # if interupt & 0xFF == ord('b'):
                 #     drone.flip_leftsimplecontrol()
                 #     sleep(1)
-                count_frame = 10
-                flags = numpy.zeros((1, 4)) # initial count of each gesture are all 0
+                #count_frame = 10
+                #flags = numpy.zeros((1, 4)) # initial count of each gesture are all 0
                 # print('*****       count_frame=%d       *****' % count_frame)
                 # frame_skip = int((time.time() - start_time) / frame.time_base)
                 frame_skip = 20

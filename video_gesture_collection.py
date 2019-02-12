@@ -63,15 +63,16 @@ def main():
         keypoints_collection = numpy.empty((0, 3), float)
 
         # print('The path is:' + str(dir_path))
-        filename = dir_path + "/leftup.mat"
+        filename = dir_path + "/action_lrr.mat"
+        #action_lrr 存储飞机下降动作样本 arms like |_o_|
 
         #  check if there's a action_1.mat file, we will create action_1.mat if not exists
 
         if not os.path.exists(filename):
-            sio.savemat('./leftup', mdict={'keypoints': keypoints_collection}, oned_as='row')
+            sio.savemat('./action_lrr', mdict={'keypoints': keypoints_collection}, oned_as='row')
 
         # for each person's action we take his or her action gesture and restore in 4d array [1,image_count,25,3]
-        keypoints_collection_import = sio.loadmat('./leftup')
+        keypoints_collection_import = sio.loadmat('./action_lrr')
         keypoints_collection = keypoints_collection_import.get('keypoints')
         if numpy.size(keypoints_collection) == 0:
             keypoints_collection = keypoints_collection.reshape(0, 3)
@@ -180,7 +181,7 @@ def main():
             if count ==1:
                 break
 
-        sio.savemat('./leftup',mdict={'keypoints': keypoints_collection}, oned_as='row')
+        sio.savemat('./action_lrr',mdict={'keypoints': keypoints_collection}, oned_as='row')
         # action_collection.write(keypoints_collection)
 
         # matdata = sio.loadmat('./action_1')
