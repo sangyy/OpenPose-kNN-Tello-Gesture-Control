@@ -106,7 +106,8 @@ def idx2pose(pastidx):
     elif pastidx == 3:  # raise the right arm , lateral raise the left arm
         print('drone.leftsimplecontrol(20)')
     elif pastidx == 4:  # both arm raised as v
-        print('drone.flip_rightsimplecontrol()')
+        #print('drone.flip_rightsimplecontrol()')
+        print('drone.upsimplecontrol(20)')
         # drone.upsimplecontrol(20)
     elif pastidx == 5:  # lateral raise both arms
         print('drone.backwardsimplecontrol(20)')
@@ -123,7 +124,7 @@ def idx2pose(pastidx):
     #             sleep(3)
     #             move_to_curve(drone,x,y,z)
 
-    elif pastidx == 6:  # raise both arms as =
+    elif pastidx == 6:  # raise both arms like |_o_|
         print('drone.downsimplecontrol(20)')
 
 def main():

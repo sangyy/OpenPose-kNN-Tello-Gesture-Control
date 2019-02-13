@@ -66,14 +66,14 @@ path1=os.path.abspath('')
 
 def implement_kNN(input_Pose):
     #input_Pose = np.load('yogav.npy')
-
-    keypoint_collection_1 = sio.loadmat(path1 + os.sep+'./action_uleft')
-    keypoint_collection_2 = sio.loadmat(path1 + os.sep+'./action_right')
-    keypoint_collection_3 = sio.loadmat(path1 + os.sep+'./action_left')
-    keypoint_collection_4 = sio.loadmat(path1 + os.sep+'./action_uright')
-    keypoint_collection_5 = sio.loadmat(path1 + os.sep+'./action_v')
-    keypoint_collection_6 = sio.loadmat(path1 + os.sep+'./action_lr')
-    keypoint_collection_7 = sio.loadmat(path1 + os.sep + './action_lrr')
+    #                                                                        如下符号代表对应的姿势动作
+    keypoint_collection_1 = sio.loadmat(path1 + os.sep+'./action_uleft')     #|o_
+    keypoint_collection_2 = sio.loadmat(path1 + os.sep+'./action_right')     #_o
+    keypoint_collection_3 = sio.loadmat(path1 + os.sep+'./action_left')      #o_
+    keypoint_collection_4 = sio.loadmat(path1 + os.sep+'./action_uright')    #_o|
+    keypoint_collection_5 = sio.loadmat(path1 + os.sep+'./action_v')         #|o|
+    keypoint_collection_6 = sio.loadmat(path1 + os.sep+'./action_lr')        #_o_
+    keypoint_collection_7 = sio.loadmat(path1 + os.sep + './action_lrr')     #|_o_|
 
     dist_1 = calculate_dist(keypoint_collection_1,input_Pose)
     dist_2 = calculate_dist(keypoint_collection_2,input_Pose)

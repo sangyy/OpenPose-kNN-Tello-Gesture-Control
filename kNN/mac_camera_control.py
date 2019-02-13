@@ -123,7 +123,7 @@ def idx2pose(pastidx):
     #             sleep(3)
     #             move_to_curve(drone,x,y,z)
 
-    elif pastidx == 6:  # raise both arms as =
+    elif pastidx == 6:  # raise both arms like |_o_|
         print('drone.downsimplecontrol(20)')
 
 def main():
