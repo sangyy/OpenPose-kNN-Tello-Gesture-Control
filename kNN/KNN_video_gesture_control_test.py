@@ -55,29 +55,29 @@ openpose = op.OpenPose(params)
 # this function is used to [test] control tello move in sequential commonns
 # [dr.niu] knows whether it is functioning well
 def move_to_curve(drone, x, y, z):
-    drone.forwardsimplecontrol(int(x))
+    drone.forward(int(x))
     sleep(2)
-    drone.downsimplecontrol(int(y))
+    drone.down(int(y))
     sleep(2)
-    drone.leftsimplecontrol(int(z))
+    drone.left(int(z))
 
 
 # function used to control tello to do justure
 # according to the idx output of knn
 def idx2pose(drone, pastidx):
     if pastidx == 0:    # raise the left arm, lateral raise the right arm
-        drone.rightsimplecontrol(20)
+        drone.right(20)
     elif pastidx == 1:  # lateral raise the right arm
         drone.land()
     elif pastidx == 2:  # lateral raise the left arm
         drone.takeoff()
     elif pastidx == 3:  # raise the right arm , lateral raise the left arm
-        drone.leftsimplecontrol(20)
+        drone.left(20)
     elif pastidx == 4:  # both arm raised as v
-        drone.upsimplecontrol(20)
-        # drone.upsimplecontrol(20)
+        drone.up(20)
+        # drone.up(20)
     elif pastidx == 5:  # lateral raise both arms
-        drone.backwardsimplecontrol(20)
+        drone.backward(20)
         # drone.go(50,30,30)
 
     #         sleep(15)
@@ -92,7 +92,7 @@ def idx2pose(drone, pastidx):
     #             move_to_curve(drone,x,y,z)
 
     elif pastidx == 6:  # raise both arms like |_o_|
-        drone.downsimplecontrol(20)
+        drone.down(20)
 
 
 def main():
@@ -102,7 +102,7 @@ def main():
         drone.connect()
         drone.wait_for_connection(60.0)
         # drone.startControlCommand()
-        # drone.takeoffsimplecontrol()
+        # drone.takeoff()
         # drone.takeoff()
         # sleep(3)
         # drone.land()
@@ -241,45 +241,45 @@ def main():
                     drone.land()
 
                 elif numpy.size(keypoints)== 0: ##if UAV can't find any person,turn around until detect one person
-                    drone.clockwisesimplecontrol(20)
+                    drone.clockwise(20)
 
-                    # drone.quitsimplecontrol()
+                    # drone.quit()
                     # sleep(1)
                 # if interupt & 0xFF == ord('l'):
                 #     drone.land()
                 #     sleep(2)
                 # if interupt & 0xFF == ord('w'):
-                #     drone.forwardsimplecontrol(20)
+                #     drone.forward(20)
                 #     # sleep(1)
                 # if interupt & 0xFF == ord('s'):
-                #     drone.backwardsimplecontrol(20)
+                #     drone.backward(20)
                 #     sleep(1)
                 # if interupt & 0xFF == ord('a'):
-                #     drone.leftsimplecontrol(20)
+                #     drone.left(20)
                 #     sleep(1)
                 # if interupt & 0xFF == ord('d'):
-                #     drone.rightsimplecontrol(20)
+                #     drone.right(20)
                 #     sleep(1)
                 # if interupt & 0xFF == ord('z'):
-                #     drone.clockwisesimplecontrol(20)
+                #     drone.clockwise(20)
                 #     sleep(1)
                 # if interupt & 0xFF == ord('c'):
-                #     drone.flip_rightsimplecontrol()
+                #     drone.flip_right()
                 #     sleep(1)
                 # if interupt & 0xFF == ord('t'):
                 #     drone.takeoff()
                 #     sleep(2)
                 # if interupt & 0xFF == ord('u'):
-                #     drone.upsimplecontrol(20)
+                #     drone.up(20)
                 #     sleep(1)
                 # if interupt & 0xFF == ord('n'):
-                #     drone.downsimplecontrol(20)
+                #     drone.down(20)
                 #     sleep(1)
                 # if interupt & 0xFF == ord('v'):
-                #     drone.contourclockwisesimplecontrol(20)
+                #     drone.contourclockwise(20)
                 #     sleep(1)
                 # if interupt & 0xFF == ord('b'):
-                #     drone.flip_leftsimplecontrol()
+                #     drone.flip_left()
                 #     sleep(1)
                 #count_frame = 10
                 #flags = numpy.zeros((1, 4)) # initial count of each gesture are all 0
