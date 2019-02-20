@@ -65,19 +65,34 @@ def move_to_curve(drone, x, y, z):
 # function used to control tello to do justure
 # according to the idx output of knn
 def idx2pose(drone, pastidx):
+    speed = 30
     if pastidx == 0:    # raise the left arm, lateral raise the right arm
-        drone.right(20)
+        print('FLY RIGHT')
+        drone.right(int(speed))
+        sleep(1)
+        drone.right(0)
     elif pastidx == 1:  # lateral raise the right arm
+        print('LAND')
         drone.land()
     elif pastidx == 2:  # lateral raise the left arm
+        print('TAKEOFF')
         drone.takeoff()
     elif pastidx == 3:  # raise the right arm , lateral raise the left arm
-        drone.left(20)
+        print('FLY LEFT')
+        drone.left(int(speed))
+        sleep(1)
+        drone.left(0)
     elif pastidx == 4:  # both arm raised as v
-        drone.up(20)
+        print('UP')
+        drone.up(int(speed))
+        sleep(1)
+        drone.up(0)
         # drone.up(20)
     elif pastidx == 5:  # lateral raise both arms
-        drone.backward(20)
+        print('BACKWARD')
+        drone.backward(int(speed))
+        sleep(1)
+        drone.backward(0)
         # drone.go(50,30,30)
 
     #         sleep(15)
@@ -92,7 +107,10 @@ def idx2pose(drone, pastidx):
     #             move_to_curve(drone,x,y,z)
 
     elif pastidx == 6:  # raise both arms like |_o_|
-        drone.down(20)
+        print('DOWN')
+        drone.down(int(speed))
+        sleep(1)
+        drone.down(0)
 
 
 def main():
@@ -107,12 +125,13 @@ def main():
         # sleep(3)
         # drone.land()
         # sleep(3)
-        drone.set_video_encoder_rate(1)
-        container = av.open(drone.get_video_stream())
+        #drone.set_video_encoder_rate(0)
+        #container = av.open(drone.get_video_stream())
+        container = av.open(format='avfoundation', file='0') 
         print('Start Video Stream**********************************')
         # skip first 10 frames
 
-        frame_skip = 10
+        frame_skip = 20
         #count_frame = 10
         #flags = numpy.zeros((1,4))
         pastidx = None  # a var to store info of indx, used in one person ver. to make same movement
@@ -125,7 +144,7 @@ def main():
                     continue
                 # start_time = time.time()
                 interupt = cv2.waitKey(10)  # 10s to read keys? roll call?
-                image = cv2.cvtColor(numpy.array(frame.to_image()), cv2.COLOR_RGB2BGR)
+                image = cv2.cvtColor(numpy.array(frame.reformat(640, 360).to_image()), cv2.COLOR_RGB2BGR)
                 keypoints, output_image = openpose.forward(image, True)
                 # keypoints is a matrix filled in multi-person data
                 # format:[[p1][p2][p3]]

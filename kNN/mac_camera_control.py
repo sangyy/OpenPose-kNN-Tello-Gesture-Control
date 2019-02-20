@@ -339,7 +339,7 @@ def main():
                 #flags = numpy.zeros((1, 4)) # initial count of each gesture are all 0
                 # print('*****       count_frame=%d       *****' % count_frame)
                 # frame_skip = int((time.time() - start_time) / frame.time_base)
-                frame_skip = 20
+                frame_skip = 10
 
     except Exception as ex:
         exc_type, exc_value, exc_traceback = sys.exc_info()
