@@ -97,7 +97,7 @@ def main():
 
                 if numpy.size(keypoints) > 40:
                     image_count += 1
-                    print('count',image_count)
+                    print('image_count',image_count)
                     keypoints = keypoints[0,:,:]
                     keypoints_collection = numpy.vstack((keypoints_collection, keypoints))
                     # keypoints_collection = numpy.append(keypoints_collection, keypoints, axis=0)
@@ -174,7 +174,7 @@ def main():
                 # flags = numpy.zeros((1, 4)) # initial count of each gesture are all 0
                 # print('*****       count_frame=%d       *****' % count_frame)
                 # frame_skip = int((time.time() - start_time) / frame.time_base)
-                frame_skip = 100
+                frame_skip = 50
                 if image_count >= 10:  # image_count that record each person's gesture
                     break
                 sleep(2)
