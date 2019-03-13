@@ -111,6 +111,12 @@ def idx2pose(drone, pastidx):
         drone.down(int(speed))
         sleep(1)
         drone.down(0)
+    
+    elif pastidx == 7:  # raise both arms like touch head
+        print('forward')
+        drone.forward(int(speed))
+        sleep(1)
+        drone.forward(0)
 
 
 def main():
@@ -260,7 +266,7 @@ def main():
                     drone.land()
 
                 elif numpy.size(keypoints)== 0: ##if UAV can't find any person,turn around until detect one person
-                    drone.clockwise(20)
+                    print('drone.clockwise(20)')
 
                     # drone.quit()
                     # sleep(1)

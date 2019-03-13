@@ -60,7 +60,7 @@ def knn(dist_all):
 
 
 pose_times = 10
-pose_number = 7#!!!!
+pose_number = 8#!!!!
 k = 10
 path1=os.path.abspath('')
 
@@ -74,6 +74,8 @@ def implement_kNN(input_Pose):
     keypoint_collection_5 = sio.loadmat(path1 + os.sep+'./action_v')         #|o|
     keypoint_collection_6 = sio.loadmat(path1 + os.sep+'./action_lr')        #_o_
     keypoint_collection_7 = sio.loadmat(path1 + os.sep + './action_lrr')     #|_o_|
+    keypoint_collection_8 = sio.loadmat(path1 + os.sep + './action_forward')     #touch head
+
 
     dist_1 = calculate_dist(keypoint_collection_1,input_Pose)
     dist_2 = calculate_dist(keypoint_collection_2,input_Pose)
@@ -82,6 +84,7 @@ def implement_kNN(input_Pose):
     dist_5 = calculate_dist(keypoint_collection_5,input_Pose)
     dist_6 = calculate_dist(keypoint_collection_6,input_Pose)
     dist_7 = calculate_dist(keypoint_collection_7, input_Pose)
+    dist_8 = calculate_dist(keypoint_collection_8, input_Pose)
 
     dist_1_all = labeled_to_dist(dist_1,0)
     dist_2_all = labeled_to_dist(dist_2,1)
@@ -90,8 +93,9 @@ def implement_kNN(input_Pose):
     dist_5_all = labeled_to_dist(dist_5,4)
     dist_6_all = labeled_to_dist(dist_6,5)
     dist_7_all = labeled_to_dist(dist_7, 6)
+    dist_8_all = labeled_to_dist(dist_8, 7)
 
-    dist_all = np.vstack((dist_1_all,dist_2_all,dist_3_all, dist_4_all, dist_5_all,dist_6_all,dist_7_all))
+    dist_all = np.vstack((dist_1_all,dist_2_all,dist_3_all, dist_4_all, dist_5_all,dist_6_all,dist_7_all,dist_8_all))
     dist_sort_index = np.argsort(dist_all[:,0])
     return knn(dist_all)
 
