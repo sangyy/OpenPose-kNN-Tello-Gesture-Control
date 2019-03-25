@@ -59,7 +59,7 @@ def knn(dist_all):
     return np.argmax(x_fre), dist_all[k_min_index,0]
 
 
-pose_times = 10
+pose_times = 10#同一动作在录制时保存的次数 image_count >= 10:  # image_count that record each person's gesture
 pose_number = 8#!!!!
 k = 10
 path1=os.path.abspath('')
