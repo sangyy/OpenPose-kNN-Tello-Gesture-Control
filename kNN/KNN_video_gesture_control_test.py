@@ -133,6 +133,9 @@ def main():
         # sleep(3)
         #drone.set_video_encoder_rate(0)
         #container = av.open(drone.get_video_stream())
+        #ubuntu camera
+        #container = av.open("/dev/video0")
+        #mac camera
         container = av.open(format='avfoundation', file='0') 
         print('Start Video Stream**********************************')
         # skip first 10 frames

@@ -144,6 +144,9 @@ def main():
         #font = cv2.FONT_HERSHEY_SIMPLEX
         #container = av.open(drone.get_video_stream())
         #container = av.open(stream)
+        #ubuntu camera
+        #container = av.open("/dev/video0")
+        #mac camera
         container = av.open(format='avfoundation', file='0') 
         '''
         
