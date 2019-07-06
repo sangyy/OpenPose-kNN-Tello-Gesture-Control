@@ -1,3 +1,4 @@
+#jetson nano version
 import sys
 import traceback
 import threading

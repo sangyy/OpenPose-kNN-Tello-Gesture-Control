@@ -127,11 +127,11 @@ def idx2pose(pastidx):
         print('drone.down(20)')
 
 def main():
-    #drone = tellopy.Tello()
+    drone = tellopy.Tello()
 
     try:
-        #drone.connect()
-        #drone.wait_for_connection(60.0)
+        drone.connect()
+        drone.wait_for_connection(60.0)
         
         # drone.startControlCommand()
         # drone.takeoff()
@@ -139,15 +139,15 @@ def main():
         # sleep(3)
         # drone.land()
         # sleep(3)
-        #drone.set_video_encoder_rate(1)
+        drone.set_video_encoder_rate(0)
         #container = cv2.VideoCapture(0)
         #font = cv2.FONT_HERSHEY_SIMPLEX
-        #container = av.open(drone.get_video_stream())
+        container = av.open(drone.get_video_stream())
         #container = av.open(stream)
         #ubuntu camera
         #container = av.open("/dev/video0")
         #mac camera
-        container = av.open(format='avfoundation', file='0') 
+        #container = av.open(format='avfoundation', file='0') 
         '''
         
          -camera (The camera index for cv::VideoCapture. Integer in the range [0,

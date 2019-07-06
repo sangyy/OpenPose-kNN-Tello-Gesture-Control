@@ -13,6 +13,7 @@ from pynput import keyboard
 
 sys.path.append('../../python')
 dir_path = os.path.dirname(os.path.realpath(__file__))
+"""
 
 try:
     from openpose import openpose as op
@@ -36,7 +37,7 @@ params["disable_blending"] = False
 params["default_model_folder"] = dir_path + "/../../../models/"
 # Construct OpenPose object allocates GPU memory
 openpose = op.OpenPose(params)
-
+"""
 def on_press(key):
     try:
         print('alphanumeric key {0} pressed'.format(
@@ -65,11 +66,11 @@ def main():
         # sleep(3)
         #drone.land()
         # sleep(3)
-        drone.set_video_encoder_rate(1)
+        drone.set_video_encoder_rate(0)
         container = av.open(drone.get_video_stream())
         print('Start Video Stream**********************************')
         # skip first 300 frames
-        frame_skip = 300
+        frame_skip = 0
         while True:
             for frame in container.decode(video=0):
                 if 0 < frame_skip:
@@ -77,10 +78,10 @@ def main():
                     continue
                 start_time = time.time()
                 count_frame = 0
-                image = cv2.cvtColor(numpy.array(frame.to_image()), cv2.COLOR_RGB2BGR)
+                image = cv2.cvtColor(numpy.array(frame.reformat(640, 380).to_image()), cv2.COLOR_RGB2BGR)
                 #cv2.imshow('Original', image)
-                keypoints, output_image = openpose.forward(image, True)
-                cv2.imshow("output", output_image)
+                #keypoints, output_image = openpose.forward(image, True)
+                cv2.imshow("output", image)
                 interupt = cv2.waitKey(10)
 
                 if interupt & 0xFF == ord('q'):
@@ -124,7 +125,7 @@ def main():
                 if interupt & 0xFF == ord('b'):
                     drone.flip_leftsimplecontrol()
                     sleep(1)
-                frame_skip = int((time.time() - start_time)/frame.time_base)
+                #frame_skip = int((time.time() - start_time)/frame.time_base)
 
     except Exception as ex:
         exc_type, exc_value, exc_traceback = sys.exc_info()
